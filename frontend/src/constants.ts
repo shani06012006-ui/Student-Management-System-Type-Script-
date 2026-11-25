@@ -26,3 +26,14 @@ export const DEPARTMENTS = Object.keys(DEPARTMENT_LABELS) as Department[];
 export const STATUSES = Object.keys(STATUS_LABELS) as StudentStatus[];
 export const GENDERS = Object.keys(GENDER_LABELS) as Gender[];
 export const YEAR_LEVELS = [1, 2, 3, 4, 5, 6];
+
+export const ACCENT_THEMES = {
+  indigo: { label: "Indigo", color: "#4f46e5" },
+  emerald: { label: "Emerald", color: "#059669" },
+  rose: { label: "Rose", color: "#e11d48" },
+  amber: { label: "Amber", color: "#d97706" },
+  sky: { label: "Sky", color: "#0284c7" },
+  violet: { label: "Violet", color: "#7c3aed" },
+} as const;
+
+export type AccentKey = keyof typeof ACCENT_THEMES;

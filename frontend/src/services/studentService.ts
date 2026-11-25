@@ -2,18 +2,26 @@ import type {
   DashboardStats,
   PaginatedResponse,
   Student,
+  StudentFilters,
   StudentPayload,
   StudentQuery,
 } from "../types";
 import { api } from "./api";
 
-export async function fetchStudents(query: StudentQuery): Promise<PaginatedResponse<Student>> {
-  const params: Record<string, string | number> = { page: query.page };
-  if (query.search) params.search = query.search;
-  if (query.status) params.status = query.status;
-  if (query.department) params.department = query.department;
+function filterParams(filters: StudentFilters): Record<string, string | number> {
+  const params: Record<string, string | number> = {};
+  if (filters.search) params.search = filters.search;
+  if (filters.status) params.status = filters.status;
+  if (filters.department) params.department = filters.department;
+  if (filters.year_level !== "") params.year_level = filters.year_level;
+  if (filters.ordering) params.ordering = filters.ordering;
+  return params;
+}
 
-  const { data } = await api.get<PaginatedResponse<Student>>("/students/", { params });
+export async function fetchStudents(query: StudentQuery): Promise<PaginatedResponse<Student>> {
+  const { data } = await api.get<PaginatedResponse<Student>>("/students/", {
+    params: { ...filterParams(query), page: query.page },
+  });
   return data;
 }
 
@@ -33,5 +41,13 @@ export async function deleteStudent(id: number): Promise<void> {
 
 export async function fetchStats(): Promise<DashboardStats> {
   const { data } = await api.get<DashboardStats>("/students/stats/");
+  return data;
+}
+
+export async function exportStudentsCsv(filters: StudentFilters): Promise<Blob> {
+  const { data } = await api.get<Blob>("/students/export/", {
+    params: filterParams(filters),
+    responseType: "blob",
+  });
   return data;
 }

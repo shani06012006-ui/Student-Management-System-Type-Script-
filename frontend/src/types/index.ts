@@ -51,6 +51,30 @@ export interface DepartmentStat {
   department: Department;
   label: string;
   count: number;
+  active: number;
+  average_gpa: number | null;
+}
+
+export interface YearStat {
+  year_level: number;
+  count: number;
+}
+
+export interface GenderStat {
+  gender: Gender;
+  label: string;
+  count: number;
+}
+
+export interface GpaBand {
+  label: string;
+  count: number;
+}
+
+export interface EnrollmentPoint {
+  /** "YYYY-MM" */
+  month: string;
+  count: number;
 }
 
 export interface DashboardStats {
@@ -60,11 +84,23 @@ export interface DashboardStats {
   graduated: number;
   average_gpa: number | null;
   by_department: DepartmentStat[];
+  by_year: YearStat[];
+  by_gender: GenderStat[];
+  gpa_distribution: GpaBand[];
+  enrollment_trend: EnrollmentPoint[];
+  recent: Student[];
+  top_students: Student[];
 }
 
-export interface StudentQuery {
-  page: number;
+/** Everything that filters the student list (no pagination). */
+export interface StudentFilters {
   search: string;
   status: StudentStatus | "";
   department: Department | "";
+  year_level: number | "";
+  ordering: string;
+}
+
+export interface StudentQuery extends StudentFilters {
+  page: number;
 }
