@@ -107,7 +107,7 @@ export function DashboardPage() {
             {new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" })}
           </p>
           <h1>
-            {greeting()}, {username} 👋
+            {greeting()}, {username} 
           </h1>
           <p className="muted">Here is what is happening across your student body.</p>
         </div>
