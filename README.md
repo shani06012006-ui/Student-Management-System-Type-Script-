@@ -15,13 +15,13 @@ Requires Python 3.10+.
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
+source venv/bin/activate 
 pip install -r requirements.txt
 
 python manage.py makemigrations students
 python manage.py migrate
-python manage.py seed_students    # creates admin/admin123 + 8 demo students
-python manage.py runserver        # http://127.0.0.1:8000
+python manage.py seed_students
+python manage.py runserver      
 ```
 
 Useful endpoints (all except login/refresh need `Authorization: Bearer <access>`):
@@ -43,7 +43,7 @@ Requires Node.js 18+.
 ```bash
 cd frontend
 npm install
-npm run dev          # http://localhost:5173
+npm run dev        
 ```
 
 Optional: set `VITE_API_URL` in a `.env` file if the API is not at `http://127.0.0.1:8000/api`.
