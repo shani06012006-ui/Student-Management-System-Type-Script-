@@ -3,9 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduTrack · Student Management</title>
+
+    <!-- Core SEO -->
+    <title>EduTrack · Student Management System</title>
+    <meta
+      name="description"
+      content="EduTrack is a student management system to track enrollments, departments, GPA and academic status, with live analytics and CSV export."
+    />
+    <meta name="theme-color" content="#1c1917" />
+
+    <!-- Social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="EduTrack" />
+    <meta property="og:title" content="EduTrack · Student Management System" />
+    <meta
+      property="og:description"
+      content="Track enrollments, departments and GPA in one place."
+    />
+
+    <!-- Favicon (inline, so no extra request) -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23d9542b'/><text x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='Georgia,serif'>E</text></svg>"
+    />
+
+    <!-- Fonts: connect early, then load with display=swap so text never waits -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+
+    <!-- Prevents a white flash before the CSS loads -->
+    <style>
+      html, body { margin: 0; background: #f5f1ea; }
+      @media (prefers-color-scheme: dark) {
+        html[data-theme="dark"], html[data-theme="dark"] body { background: #0c0a09; }
+      }
+    </style>
   </head>
   <body>
+    <noscript>EduTrack needs JavaScript enabled to run.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

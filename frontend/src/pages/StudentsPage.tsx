@@ -92,6 +92,15 @@ export function StudentsPage() {
   const [page, setPage] = useState(1);
   const debouncedSearch = useDebouncedValue(search, 350);
 
+  useEffect(() => {
+    const term = params.get("search");
+    if (term === null) return;
+    setSearch(term);
+    const next = new URLSearchParams(params);
+    next.delete("search");
+    setParams(next, { replace: true });
+  }, [params, setParams]);
+
   const [data, setData] = useState<PaginatedResponse<Student> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -295,7 +304,7 @@ export function StudentsPage() {
 
       <div className="card card--flush">
         <div className="table-wrap">
-          <table className="table">
+          <table className="table table--students">
             <thead>
               <tr>
                 <SortableHeader label="Student" field="first_name" sort={sort} onSort={toggleSort} />

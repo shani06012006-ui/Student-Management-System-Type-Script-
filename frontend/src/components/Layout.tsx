@@ -9,9 +9,11 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { initials } from "../utils/format";
+import { Topbar } from "./Topbar";
 
 interface NavItem {
   to: string;
@@ -57,6 +59,21 @@ function NavSection({ title, items }: { title: string; items: NavItem[] }) {
 export function Layout() {
   const { username, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Close the mobile drawer whenever the route changes.
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [location.pathname]);
+
+  // Stop the page from scrolling behind the open drawer.
+  useEffect(() => {
+    document.body.style.overflow = drawerOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [drawerOpen]);
 
   const handleLogout = () => {
     logout();
@@ -65,7 +82,9 @@ export function Layout() {
 
   return (
     <div className="app-shell">
-      <aside className="sidebar">
+      {drawerOpen && <div className="sidebar-backdrop" onClick={() => setDrawerOpen(false)} />}
+
+      <aside className={`sidebar${drawerOpen ? " sidebar--open" : ""}`}>
         <div className="brand">
           <div className="brand__logo">
             <GraduationCap size={20} />
@@ -101,9 +120,12 @@ export function Layout() {
         </div>
       </aside>
 
-      <main className="content">
-        <Outlet />
-      </main>
+      <div className="main">
+        <Topbar onMenuClick={() => setDrawerOpen(true)} />
+        <main className="content">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

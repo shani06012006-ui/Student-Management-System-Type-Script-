@@ -247,7 +247,7 @@ export function DashboardPage() {
         }
       >
         <div className="table-wrap">
-          <table className="table">
+          <table className="table table--recent">
             <thead>
               <tr>
                 <th>Student</th>
